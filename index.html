@@ -678,6 +678,7 @@ Tailor everything to ${platform}. Return only the JSON, nothing else.`;
       body:JSON.stringify({messages:[{role:"user",content:prompt}]})
     });
     const data = await res.json();
+    if(!data.content) throw new Error("No content in response: " + JSON.stringify(data).substring(0,200));
     const text = data.content.map(i=>i.text||"").join("").trim();
     let clean = text.replace(/```json/gi,"").replace(/```/g,"").trim();
     const s = clean.indexOf("{");
