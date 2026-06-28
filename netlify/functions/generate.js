@@ -1,25 +1,23 @@
 const https = require("https");
 
 exports.handler = async function(event, context) {
+  context.callbackWaitsForEmptyEventLoop = false;
+
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
 
   const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
-
   if (!ANTHROPIC_API_KEY) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: "API key not configured" })
-    };
+    return { statusCode: 500, body: JSON.stringify({ error: "API key not configured" }) };
   }
 
   try {
     const body = JSON.parse(event.body);
-    
+
     const payload = JSON.stringify({
-      model: "claude-sonnet-4-6",
-      max_tokens: 4000,
+      model: "claude-haiku-4-5-20251001",
+      max_tokens: 1500,
       messages: body.messages
     });
 
@@ -40,25 +38,20 @@ exports.handler = async function(event, context) {
         let data = "";
         res.on("data", (chunk) => { data += chunk; });
         res.on("end", () => {
-          try {
-            resolve(JSON.parse(data));
-          } catch(e) {
-            reject(new Error("Invalid JSON from Anthropic: " + data.substring(0, 100)));
-          }
+          try { resolve(JSON.parse(data)); }
+          catch(e) { reject(new Error("Parse error: " + data.substring(0, 100))); }
         });
       });
 
       req.on("error", reject);
+      req.setTimeout(22000, () => { req.destroy(); reject(new Error("Timed out")); });
       req.write(payload);
       req.end();
     });
 
     return {
       statusCode: 200,
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      },
+      headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
       body: JSON.stringify(result)
     };
 

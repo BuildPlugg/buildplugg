@@ -795,11 +795,10 @@ async function generateBuild(){
   const bv=document.getElementById("brandVibe").value.trim();
   if(!cn||!co||!ni||!ws||!ta||!bv){showErr("Please fill out all fields.");return;}
   hideErr();setLoad(true);
-  const prompt=`You are a business builder AI. Generate a complete online business package.
-CLIENT: Name: ${cn}, Business: ${co}, Niche: ${ni}, Platform: ${pl}, Selling: ${ws}, Audience: ${ta}, Brand: ${bv}
-Return ONLY valid JSON with these 9 keys. Values are plain text strings. Use pipe | to separate list items. No quotes or special characters inside values:
-{"offer_structure":"tier 1 name and what they get | tier 2 name and what they get | tier 3","whop_headline":"bold headline. then 2 sentence description","whats_included":"benefit 1 | benefit 2 | benefit 3 | benefit 4 | benefit 5 | benefit 6","branding_direction":"#hexcode color name | #hexcode color name | #hexcode accent | font vibe | logo concept","community_channels":"channel name purpose | channel name purpose | channel name purpose | channel name purpose | channel name purpose | channel name purpose","welcome_message":"full welcome message text","pinned_message":"full pinned message text","content_ideas":"idea 1 title and description | idea 2 | idea 3 | idea 4 | idea 5","launch_announcement":"full launch post ready to copy"}
-Tailor everything to ${pl}. Return only the JSON nothing else.`;
+  const prompt=`Business builder AI. Generate a business package as JSON only.
+Name:${cn} Business:${co} Niche:${ni} Selling:${ws} Audience:${ta} Brand:${bv}
+Return ONLY this JSON, pipe | separates list items:
+{"offer_structure":"tier1 name and benefits | tier2 name and benefits | tier3 name and benefits","whop_headline":"headline. 2 sentence description","whats_included":"benefit1 | benefit2 | benefit3 | benefit4 | benefit5","branding_direction":"#hex colorname | #hex colorname | #hex accent | font vibe","community_channels":"channel1 purpose | channel2 purpose | channel3 purpose | channel4 purpose | channel5 purpose","welcome_message":"welcome message","pinned_message":"pinned message","content_ideas":"idea1 | idea2 | idea3 | idea4 | idea5","launch_announcement":"launch post text"}`;
   try{
     const r=await fetch("/.netlify/functions/generate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:[{role:"user",content:prompt}]})});
     const data=await r.json();
