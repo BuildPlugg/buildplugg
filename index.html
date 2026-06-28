@@ -8,6 +8,8 @@
 <meta property="og:title" content="BuildPlugg — Your Business. Built by AI."/>
 <meta property="og:description" content="Fill in your info and BuildPlugg AI generates your complete branded business — offer, website, copy, branding, community structure, and launch scripts. Ready in minutes."/>
 <meta property="og:image" content="https://buildplugg.netlify.app/og-image.png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
 <meta property="og:url" content="https://buildplugg.netlify.app"/>
 <meta property="og:type" content="website"/>
 <meta name="twitter:card" content="summary_large_image"/>
@@ -465,11 +467,7 @@ footer p{font-size:0.73rem;color:var(--text-dim)}
         </a>
         <a href="#ai-tool" class="btn-ghost">See the AI Tool</a>
       </div>
-      <div class="hero-stats">
-        <div class="hero-stat"><div class="hero-stat-num">9</div><div class="hero-stat-label">AI Outputs</div></div>
-        <div class="hero-stat"><div class="hero-stat-num">$60</div><div class="hero-stat-label">Per Month</div></div>
-        <div class="hero-stat"><div class="hero-stat-num">∞</div><div class="hero-stat-label">Builds</div></div>
-      </div>
+
     </div>
     <div class="mockup">
       <div class="mockup-glow"></div>
@@ -656,15 +654,12 @@ footer p{font-size:0.73rem;color:var(--text-dim)}
           <div class="fg"><div class="fl">Your Name</div><input type="text" id="clientName" class="fi" placeholder="Your name"/></div>
           <div class="fg"><div class="fl">Business / Community Name</div><input type="text" id="communityName" class="fi" placeholder="Your business name"/></div>
         </div>
-        <div class="fg3">
+        <div class="fg2">
           <div class="fg">
             <div class="fl">Niche</div>
             <select id="niche" class="fi"><option value="" disabled selected>Select niche</option><option>Fitness Coaching</option><option>Finance & Investing</option><option>Sports Picks & Signals</option><option>Reselling</option><option>Content Creation</option><option>Coaching & Mentorship</option><option>Digital Products</option><option>Lifestyle Brand</option><option>Other</option></select>
           </div>
-          <div class="fg">
-            <div class="fl">Platform</div>
-            <select id="platform" class="fi"><option value="" disabled selected>Select platform</option><option>Whop</option><option>Skool</option><option>Stan Store</option><option>Gumroad</option><option>Kajabi</option><option>Teachable</option><option>Patreon</option><option>Beacons</option></select>
-          </div>
+
           <div class="fg"><div class="fl">Brand Vibe & Colors</div><input type="text" id="brandVibe" class="fi" placeholder="e.g. Bold, black & red"/></div>
         </div>
         <div class="fg2">
@@ -779,6 +774,8 @@ function buildSite(d,fd){
 <meta property="og:title" content="BuildPlugg — Your Business. Built by AI."/>
 <meta property="og:description" content="Fill in your info and BuildPlugg AI generates your complete branded business — offer, website, copy, branding, community structure, and launch scripts. Ready in minutes."/>
 <meta property="og:image" content="https://buildplugg.netlify.app/og-image.png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
 <meta property="og:url" content="https://buildplugg.netlify.app"/>
 <meta property="og:type" content="website"/>
 <meta name="twitter:card" content="summary_large_image"/>
@@ -792,11 +789,11 @@ async function generateBuild(){
   const cn=document.getElementById("clientName").value.trim();
   const co=document.getElementById("communityName").value.trim();
   const ni=document.getElementById("niche").value;
-  const pl=document.getElementById("platform").value;
+  const pl="Your Platform";
   const ws=document.getElementById("whatSelling").value.trim();
   const ta=document.getElementById("targetAudience").value.trim();
   const bv=document.getElementById("brandVibe").value.trim();
-  if(!cn||!co||!ni||!pl||!ws||!ta||!bv){showErr("Please fill out all fields.");return;}
+  if(!cn||!co||!ni||!ws||!ta||!bv){showErr("Please fill out all fields.");return;}
   hideErr();setLoad(true);
   const prompt=`You are a business builder AI. Generate a complete online business package.
 CLIENT: Name: ${cn}, Business: ${co}, Niche: ${ni}, Platform: ${pl}, Selling: ${ws}, Audience: ${ta}, Brand: ${bv}
