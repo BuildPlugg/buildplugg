@@ -17,7 +17,7 @@ exports.handler = async function(event, context) {
 
     const payload = JSON.stringify({
       model: "claude-haiku-4-5-20251001",
-      max_tokens: 1500,
+      max_tokens: 8192,
       messages: body.messages
     });
 
@@ -44,7 +44,7 @@ exports.handler = async function(event, context) {
       });
 
       req.on("error", reject);
-      req.setTimeout(22000, () => { req.destroy(); reject(new Error("Timed out")); });
+      req.setTimeout(26000, () => { req.destroy(); reject(new Error("Timed out - try a shorter description")); });
       req.write(payload);
       req.end();
     });

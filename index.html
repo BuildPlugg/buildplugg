@@ -677,8 +677,7 @@ footer p{font-size:0.73rem;color:var(--text-dim)}
         </div>
         <div class="out-area" id="outArea">
           <div class="out-top">
-            <div class="out-heading">YOUR <span>PACKAGE</span></div>
-            <button class="copy-all-btn" onclick="copyAll()">Copy All</button>
+            <div class="out-heading">YOUR <span>WEBSITE</span></div>
           </div>
           <div class="out-cards" id="outCards"></div>
           <button class="regen" onclick="generateBuild()">↺ Regenerate</button>
@@ -759,86 +758,75 @@ const SECS=[
 ];
 let lastOut={};
 
-function parseColors(t){const h=t.match(/#[0-9A-Fa-f]{6}/g)||[];const u=[...new Set(h)];return u.length>=2?u:["#1a1a2e","#e6b84a","#ffffff"];}
-function makeLogo(n,c){const i=n.split(" ").map(w=>w[0]).join("").substring(0,2).toUpperCase();return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="80" height="80"><rect width="100" height="100" rx="16" fill="${c[0]||"#1a1a2e"}"/><text x="50" y="62" font-family="Arial Black,sans-serif" font-size="38" font-weight="900" fill="${c[1]||"#e6b84a"}" text-anchor="middle">${i}</text></svg>`;}
-
-function buildSite(d,fd){
-  const c=parseColors(d.branding_direction||"");
-  const p=c[0]||"#0a0a0a",a=c[1]||"#e6b84a";
-  const lb="data:image/svg+xml;base64,"+btoa(makeLogo(fd.communityName,c));
-  const hl=(d.whop_headline||"").split(".")[0]||fd.communityName;
-  const sub=(d.whop_headline||"").split(".").slice(1).join(".").trim();
-  const inc=(d.whats_included||"").split("|").map(i=>i.trim()).filter(Boolean);
-  const tiers=(d.offer_structure||"").split("|").map(i=>i.trim()).filter(Boolean);
-  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>${fd.communityName}</title><!-- OG / Social Preview -->
-<meta property="og:title" content="BuildPlugg — Your Business. Built by AI."/>
-<meta property="og:description" content="Fill in your info and BuildPlugg AI generates your complete branded business — offer, website, copy, branding, community structure, and launch scripts. Ready in minutes."/>
-<meta property="og:image" content="https://buildplugg.netlify.app/og-image.png"/>
-<meta property="og:image:width" content="1200"/>
-<meta property="og:image:height" content="630"/>
-<meta property="og:url" content="https://buildplugg.netlify.app"/>
-<meta property="og:type" content="website"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="BuildPlugg — Your Business. Built by AI."/>
-<meta name="twitter:description" content="Fill in your info and BuildPlugg AI generates your complete branded business — ready in minutes."/>
-<meta name="twitter:image" content="https://buildplugg.netlify.app/og-image.png"/>
-<link rel="icon" href="${lb}"/><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Bebas+Neue&display=swap" rel="stylesheet"><style>*{box-sizing:border-box;margin:0;padding:0}:root{--p:${p};--a:${a}}body{background:#04060e;color:#f0f0f0;font-family:'Space Grotesk',sans-serif}body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:48px 48px;pointer-events:none}nav{position:fixed;top:0;left:0;right:0;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;background:rgba(4,6,14,0.45);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,0.05);z-index:100}.lw{display:flex;align-items:center;gap:.6rem}.li{width:32px;height:32px;border-radius:8px}.lt{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#fff}.nb{background:${a};color:#04060e;font-weight:700;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;padding:.45rem 1.1rem;border:none;cursor:pointer;border-radius:4px;text-decoration:none;box-shadow:0 0 20px ${a}30}.hero{min-height:100vh;display:flex;align-items:center;padding:7rem 2rem 4rem;position:relative;overflow:hidden}.hg{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,${a}10 0%,transparent 70%);top:-100px;right:-150px;pointer-events:none}.badge{display:inline-flex;align-items:center;gap:.4rem;background:${a}14;border:1px solid ${a}35;color:${a};font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;padding:.3rem .75rem;border-radius:999px;margin-bottom:1.5rem}.badge::before{content:'';width:5px;height:5px;border-radius:50%;background:${a}}h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,8vw,7rem);line-height:.9;color:#fff;margin-bottom:1.25rem;text-shadow:0 0 60px ${a}20}h1 span{color:${a};text-shadow:0 0 40px ${a}40}.sub{font-size:1rem;color:rgba(255,255,255,.5);line-height:1.8;max-width:500px;margin-bottom:2rem}.btn{background:${a};color:#04060e;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;padding:.85rem 1.75rem;border:none;cursor:pointer;border-radius:4px;text-decoration:none;display:inline-block;box-shadow:0 0 30px ${a}25}.sec{padding:5rem 2rem}.inn{max-width:900px;margin:0 auto}.ey{font-size:.62rem;text-transform:uppercase;letter-spacing:.18em;color:${a};font-weight:700;margin-bottom:.6rem;display:flex;align-items:center;gap:.4rem}.ey::before{content:'';width:16px;height:1px;background:${a};opacity:.5}.st{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,4vw,3rem);color:#fff;margin-bottom:2rem}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}.card{border:1px solid rgba(255,255,255,.06);border-radius:10px;background:rgba(255,255,255,.02);padding:1.5rem;display:flex;gap:.75rem;position:relative;overflow:hidden;transition:border-color .2s}.card::before{content:'';position:absolute;top:0;left:0;width:2px;height:100%;background:${a}}.card:hover{border-color:${a}30}.dot{width:8px;height:8px;border-radius:50%;background:${a};flex-shrink:0;margin-top:4px}.card p{font-size:.85rem;color:rgba(255,255,255,.6);line-height:1.65}.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}.tier{border:1px solid rgba(255,255,255,.06);border-radius:10px;background:rgba(255,255,255,.02);padding:1.5rem;transition:all .2s}.tier:hover{border-color:${a}40;transform:translateY(-2px)}.tier.f{border-color:${a}40;background:linear-gradient(135deg,${a}06,rgba(255,255,255,.02))}.tier.f::before{content:'';display:block;width:100%;height:1px;background:${a};margin-bottom:1rem;opacity:.4}.tn{font-weight:700;font-size:.95rem;color:#fff;margin-bottom:.4rem}.td{font-size:.8rem;color:rgba(255,255,255,.4);line-height:1.6}.cta{background:linear-gradient(135deg,#0d1a3a,#04060e);border-top:1px solid rgba(255,255,255,.05);padding:6rem 2rem;text-align:center;position:relative}.cg{position:absolute;width:600px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(74,143,232,.06) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}.cta h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,7vw,5.5rem);color:#fff;line-height:.92;margin-bottom:1rem;text-shadow:0 0 60px rgba(74,143,232,.15)}cta h2 span{color:${a}}.cp{color:rgba(255,255,255,.4);margin:0 auto 2rem;max-width:360px;line-height:1.7}footer{background:#04060e;border-top:1px solid rgba(255,255,255,.05);padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}footer p{font-size:.75rem;color:rgba(255,255,255,.2)}</style></head><body><nav><div class="lw"><img src="${lb}" class="li"/><div class="lt">${fd.communityName}</div></div><a href="#join" class="nb">Join Now</a></nav><section class="hero"><div class="hg"></div><div style="max-width:900px;margin:0 auto;width:100%"><div class="badge">${fd.niche}</div><h1>${hl.toUpperCase().replace(/\./g,"")}<br><span>${fd.communityName.toUpperCase()}</span></h1><p class="sub">${sub||"Join the community built for people serious about results."}</p><a href="#join" class="btn">Get Started →</a></div></section>${inc.length>0?`<section class="sec" style="background:rgba(255,255,255,.01);border-top:1px solid rgba(255,255,255,.05)"><div class="inn"><div class="ey">What You Get</div><div class="st">Everything included.</div><div class="grid">${inc.map(i=>`<div class="card"><div class="dot"></div><p>${i}</p></div>`).join("")}</div></div></section>`:""}${tiers.length>0?`<section class="sec" style="border-top:1px solid rgba(255,255,255,.05)"><div class="inn"><div class="ey">Pricing</div><div class="st">Choose your plan.</div><div class="tiers">${tiers.map((t,i)=>`<div class="tier ${i===1?"f":""}"><div class="tn">${t.split("-")[0]||t.split(":")[0]}</div><div class="td">${t.split("-").slice(1).join("-").trim()||t}</div></div>`).join("")}</div></div></section>`:""}<section class="cta" id="join"><div class="cg"></div><h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,7vw,5.5rem);color:#fff;line-height:.92;margin-bottom:1rem">READY TO<br><span style="color:${a}">GET STARTED?</span></h2><p class="cp">Join today and get instant access to everything inside.</p><a href="#" class="btn">Join ${fd.communityName} →</a></section><footer><div class="lw"><img src="${lb}" class="li"/><div class="lt">${fd.communityName}</div></div><p>© ${new Date().getFullYear()} ${fd.communityName}. Built with BuildPlugg.</p></footer></body></html>`;
-}
-
 async function generateBuild(){
   const cn=document.getElementById("clientName").value.trim();
   const co=document.getElementById("communityName").value.trim();
   const ni=document.getElementById("niche").value;
-  const pl="Your Platform";
   const ws=document.getElementById("whatSelling").value.trim();
   const ta=document.getElementById("targetAudience").value.trim();
   const bv=document.getElementById("brandVibe").value.trim();
   if(!cn||!co||!ni||!ws||!ta||!bv){showErr("Please fill out all fields.");return;}
   hideErr();setLoad(true);
-  const prompt=`Business builder AI. Generate a business package as JSON only.
-Name:${cn} Business:${co} Niche:${ni} Selling:${ws} Audience:${ta} Brand:${bv}
-Return ONLY this JSON, pipe | separates list items:
-{"offer_structure":"tier1 name and benefits | tier2 name and benefits | tier3 name and benefits","whop_headline":"headline. 2 sentence description","whats_included":"benefit1 | benefit2 | benefit3 | benefit4 | benefit5","branding_direction":"#hex colorname | #hex colorname | #hex accent | font vibe","community_channels":"channel1 purpose | channel2 purpose | channel3 purpose | channel4 purpose | channel5 purpose","welcome_message":"welcome message","pinned_message":"pinned message","content_ideas":"idea1 | idea2 | idea3 | idea4 | idea5","launch_announcement":"launch post text"}`;
+
+  const prompt=`You are an elite web designer and copywriter AI. Generate a COMPLETE, production-ready single-file HTML website for this business. This must be as polished and complete as a top web design agency would deliver — not a template with blanks filled in.
+
+BUSINESS INFO:
+Owner Name: ${cn}
+Business Name: ${co}
+Niche: ${ni}
+What They Sell: ${ws}
+Target Audience: ${ta}
+Brand Vibe: ${bv}
+
+CRITICAL DESIGN RULES:
+1. Pick ONE vibrant, bright accent color that fits the brand vibe (never black, never white, never a dark/muddy color — it must pop against a dark background). Use this consistently throughout.
+2. Pick a dark background (near-black, like #06090f) with the accent color used for highlights, buttons, and key text.
+3. Write a SHORT punchy hero headline (max 6 words) plus a 1-2 sentence subheadline that speaks directly to the target audience's desire or pain point.
+4. Write REAL pricing with actual dollar amounts appropriate for the niche (research typical pricing for ${ni} businesses) — never say "Tier 1" or generic placeholders, give each tier a real descriptive name and real price.
+5. Write specific, benefit-driven bullet points for what's included — not generic descriptions. Make every line sound like it was written by someone who deeply understands ${ta}.
+6. Include a short "About / Why This Exists" section establishing credibility for ${cn} as the person behind ${co}. Make it sound personal and authentic, like a real founder story.
+7. Include an FAQ section with 4 real questions a skeptical buyer would ask (about results, time commitment, refunds, getting started), answered persuasively and specifically.
+8. Include a TESTIMONIALS section with 3 realistic-sounding placeholder testimonials (fake names, 5-star ratings using ★★★★★, specific results/outcomes relevant to ${ni}) clearly formatted as social proof cards.
+9. Include an urgency/scarcity element near the pricing or final CTA — something like limited spots, founding member pricing, or a bonus for joining now. Make it feel authentic, not spammy.
+10. Use niche-appropriate language and tone — speak like a real expert in ${ni} would actually speak to ${ta}.
+11. Font: Use 'Bebas Neue' for headlines (Google Fonts) and 'Space Grotesk' for body text (Google Fonts).
+12. Include a subtle grid background pattern and soft glow effects for visual depth throughout the page, not just the hero.
+13. Make it fully responsive with a mobile breakpoint at 768px — stack grids to single column, scale down font sizes appropriately.
+14. Include a proper <title> tag and <meta name="description"> tag optimized for ${ni} and ${co} for basic SEO.
+15. Include: nav with logo + CTA button, hero, testimonials section, what's included section, pricing section with urgency element, about/credibility section, FAQ section, final CTA section, footer.
+16. The logo in the nav and footer should be a simple colored square/circle with the business initials in it (inline SVG, no external images). Also generate a matching favicon as an inline SVG data URI in a <link rel="icon"> tag in the head, using the same initials and color.
+17. All buttons/CTAs link to "#" — these are non-functional links for the customer to wire up later.
+18. Do NOT mention BuildPlugg, Whop, Skool, or any other platform anywhere in the output.
+
+Return ONLY the complete HTML document starting with <!DOCTYPE html> and ending with </html>. No markdown code fences, no explanation, no preamble — just the raw HTML.`;
+
   try{
     const r=await fetch("/.netlify/functions/generate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:[{role:"user",content:prompt}]})});
     const data=await r.json();
     if(!data.content)throw new Error("No content: "+JSON.stringify(data).substring(0,150));
-    const txt=data.content.map(i=>i.text||"").join("").trim();
-    let clean=txt.replace(/```json/gi,"").replace(/```/g,"").trim();
-    const s=clean.indexOf("{"),e=clean.lastIndexOf("}");
-    if(s===-1||e===-1)throw new Error("No JSON found");
-    const parsed=JSON.parse(clean.substring(s,e+1));
-    lastOut=parsed;
-    renderOut(parsed,{clientName:cn,communityName:co,niche:ni,platform:pl,whatSelling:ws,targetAudience:ta,brandVibe:bv});
+    let siteHTML=data.content.map(i=>i.text||"").join("").trim();
+    siteHTML=siteHTML.replace(/```html/gi,"").replace(/```/g,"").trim();
+    const docStart=siteHTML.indexOf("<!DOCTYPE");
+    if(docStart>0) siteHTML=siteHTML.substring(docStart);
+    if(!siteHTML.toLowerCase().includes("<!doctype")) throw new Error("AI did not return valid HTML");
+    renderOut(siteHTML,{clientName:cn,communityName:co});
     setLoad(false);
   }catch(err){setLoad(false);showErr("Generation failed. Please try again. ("+err.message+")");}
 }
 
-function renderOut(d,fd){
-  const html=buildSite(d,fd);
-  const blob=new Blob([html],{type:"text/html"});
+function renderOut(siteHTML,fd){
+  const blob=new Blob([siteHTML],{type:"text/html"});
   const url=URL.createObjectURL(blob);
   const cards=document.getElementById("outCards");
   cards.innerHTML="";
   const prev=document.createElement("div");
   prev.className="oc";prev.style.cssText="border-color:rgba(230,184,74,0.2)";
-  prev.innerHTML=`<div class="oc-top" style="background:rgba(230,184,74,0.03)"><div class="oc-label"><div class="oc-dot" style="background:var(--gold)"></div>Your Website — Ready to Download</div><a href="${url}" download="${fd.communityName.replace(/\s+/g,"-").toLowerCase()}-site.html" style="background:linear-gradient(135deg,var(--gold),#d4a030);color:#04060e;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.07em;text-transform:uppercase;padding:.28rem .75rem;border-radius:3px;text-decoration:none;box-shadow:0 0 15px rgba(230,184,74,0.15)">⬇ Download</a></div><iframe src="${url}" style="width:100%;height:380px;border:none;display:block" sandbox="allow-same-origin"></iframe>`;
+  prev.innerHTML=`<div class="oc-top" style="background:rgba(230,184,74,0.03)"><div class="oc-label"><div class="oc-dot" style="background:var(--gold)"></div>${fd.communityName} — Full Website Generated</div><a href="${url}" download="${fd.communityName.replace(/\s+/g,"-").toLowerCase()}-website.html" style="background:linear-gradient(135deg,var(--gold),#d4a030);color:#04060e;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.07em;text-transform:uppercase;padding:.32rem .85rem;border-radius:3px;text-decoration:none;box-shadow:0 0 15px rgba(230,184,74,0.15)">⬇ Download Site</a></div><iframe src="${url}" style="width:100%;height:600px;border:none;display:block"></iframe>`;
   cards.appendChild(prev);
-  SECS.forEach(function(s){
-    if(!d[s.key])return;
-    let c=d[s.key];
-    if(c.includes("|"))c=c.split("|").map(i=>"• "+i.trim()).join("\n");
-    lastOut[s.key]=c;
-    const card=document.createElement("div");card.className="oc";
-    card.innerHTML=`<div class="oc-top"><div class="oc-label"><div class="oc-dot" style="background:${s.color}"></div>${s.label}</div><button class="cp-btn" onclick="cpSec(this,'${s.key}')">Copy</button></div><div class="oc-body" id="sec-${s.key}">${c}</div>`;
-    cards.appendChild(card);
-  });
   document.getElementById("outArea").className="out-area on";
   document.getElementById("outArea").scrollIntoView({behavior:"smooth",block:"start"});
 }
-function cpSec(b,k){navigator.clipboard.writeText(document.getElementById("sec-"+k).innerText).then(function(){b.textContent="Copied!";b.classList.add("copied");setTimeout(function(){b.textContent="Copy";b.classList.remove("copied")},2000);});}
-function copyAll(){let f="";SECS.forEach(function(s){if(lastOut[s.key])f+="=== "+s.label.toUpperCase()+" ===\n"+lastOut[s.key]+"\n\n";});navigator.clipboard.writeText(f.trim()).then(function(){event.target.textContent="Copied!";setTimeout(function(){event.target.textContent="Copy All"},2000);});}
-function setLoad(a){document.getElementById("loadArea").className="load-area"+(a?" on":"");const b=document.getElementById("generateBtn");b.disabled=a;b.style.opacity=a?"0.4":"1";b.innerHTML=a?"Generating...":'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Generate My Build Package';}
+
 function showErr(m){const e=document.getElementById("errorMsg");e.textContent=m;e.className="err on";}
 function hideErr(){document.getElementById("errorMsg").className="err";}
 </script>
